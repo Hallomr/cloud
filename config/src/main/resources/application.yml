@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: config
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:config/
+
+server:
+  port: 8081
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+    registry-fetch-interval-seconds: 10 #拉取服务注册信息间隔时间（默认为30s）
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-expiration-duration-in-seconds: 90 #服务中心删除此服务实例的等待时间，时间间隔为最后一次服务中心接受到心跳的时间
+    lease-renewal-interval-in-seconds: 30 #该实例给服务中心发送心跳的间隔时间，用于表明该服务实例可用

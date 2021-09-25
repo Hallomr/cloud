@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: eureka
+eureka:
+  instance:
+    ip-address: localhost
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-expiration-duration-in-seconds: 90 #服务中心删除此服务实例的等待时间，时间间隔为最后一次服务中心接受到心跳的时间
+    lease-renewal-interval-in-seconds: 30 #该实例给服务中心发送心跳的间隔时间，用于表明该服务实例可用
+  client:
+    register-with-eureka: false #实例是否在eureka服务器上注册自己的信息以供其他服务发现，默认为true
+    fetch-registry: false #此客户端是否获取eureka服务器注册表上的注册信息，默认为true
+    service-url:
+      defaultZone: http://localhost:8080/eureka/ #集群情况下服务端之间要相互注册指向对方
+    healthcheck:
+      enabled: true
+  server:
+    enable-self-preservation: false #关闭自我保护后会清理无效实例节点
+    eviction-interval-timer-in-ms: 60000 #开启清除无效服务的定时任务，默认一分钟
+    use-read-only-response-cache: false #是否采用只读缓存策略，只读策略对于缓存的数据不会过期

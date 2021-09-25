@@ -1,0 +1,55 @@
+server:
+  port: 8082
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启通过服务中心的自动根据 serviceId 创建路由的功能
+          lower-case-service-id: true #表示将请求路径的服务名配置改成小写，因为服务向注册中心注册时将服务名转成了大写
+      routes:
+        - id: business #自定义的路由ID，保持唯一性
+          #uri: lb://eureka-client #代表从注册中心获取服务，且以lb(load-balance)负载均衡方式转发
+          uri: http://localhost:8083
+          predicates: #断言
+          - Path=/business/** #表示将以/business开头的请求转发到uri为http://localhost:8083的地址上
+          #filters:
+          #- StripPrefix=1 #1就代表截取路径的个数，这样配置后当请求/business/test后端匹配到的请求路径替换为http://localhost:8083/test
+          #- PrefixPath=/business # 当访问 http://localhost:8083/test，加上前缀就变成 http://localhost:8083/business/test
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+    registry-fetch-interval-seconds: 10 #拉取服务注册信息间隔时间（默认为30s）
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 30 #每隔30s发送一次心跳
+    lease-expiration-duration-in-seconds: 90 #告知服务端90秒还未收到心跳的话，就将该服务移除列表
+    health-check-url-path: /actuator/health #健康检查路径
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000 #服务降级超时时间为6s
+
+ribbon:
+  ReadTimeout: 300000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+
