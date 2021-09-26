@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8081 #config-server的请求路径
+      name: config
+      profile: dev #name、profile用于区分引用的配置文件，例如引用config-server下的config-idev.yml，name就是config，profile就是dev
