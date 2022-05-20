@@ -9,6 +9,12 @@ server:
 spring:
   application:
     name: business
+  datasource:
+    url: jdbc:mysql://localhost:3306/poi?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
 
 eureka:
   client:
@@ -20,3 +26,10 @@ eureka:
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     lease-renewal-interval-in-seconds: 30 #每隔30s发送一次心跳
     lease-expiration-duration-in-seconds: 90 #告知服务端90秒还未收到心跳的话，就将该服务移除列表
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.example.poi.entity
+  global-config:
+    db-config:
+      id-type: auto
