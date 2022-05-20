@@ -29,7 +29,7 @@ eureka:
 
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.example.poi.entity
+  type-aliases-package: com.example.core.model.business
   global-config:
     db-config:
       id-type: auto

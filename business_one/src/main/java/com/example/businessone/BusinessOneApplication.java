@@ -1,4 +1,4 @@
-package com.example.business_one;
+package com.example.businessone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients(basePackages="com.example.*")
-@ComponentScan(basePackages={"com.example.api","com.example.business_one"})
+@ComponentScan(basePackages={"com.example.api","com.example.businessone"})
 public class BusinessOneApplication {
 
     public static void main(String[] args) {
