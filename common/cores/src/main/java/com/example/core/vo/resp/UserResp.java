@@ -1,5 +1,7 @@
 package com.example.core.vo.resp;
 
+import com.example.core.enums.IEnum;
+import com.example.core.enums.StatusEnum;
 import com.example.core.model.business.Content;
 import lombok.Data;
 
@@ -13,7 +15,7 @@ public class UserResp  {
 
     private String username;
 
-    //@IEnum(StatusEnum.class)
+    @IEnum(StatusEnum.class)
     private Integer status;
 
     private LocalDateTime createTime;
