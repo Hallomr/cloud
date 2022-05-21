@@ -61,5 +61,11 @@
             <artifactId>hutool-all</artifactId>
             <version>5.3.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.deepoove</groupId>
+            <artifactId>poi-tl</artifactId>
+            <version>1.8.0</version>
+        </dependency>
     </dependencies>
 </project>
