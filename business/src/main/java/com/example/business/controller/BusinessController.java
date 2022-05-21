@@ -3,6 +3,8 @@ package com.example.business.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.api.service.BusinessClient;
 import com.example.business.mapper.RouteMapper;
+import com.example.core.anno.LoginAnno;
+import com.example.core.anno.ParamLogAnno;
 import com.example.core.dto.business.RoutingExcelDto;
 import com.example.core.model.business.Route;
 import com.example.core.utils.ExcelUtils;
@@ -18,6 +20,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@LoginAnno
 @RestController
 @Slf4j
 public class BusinessController implements BusinessClient {
@@ -63,5 +66,11 @@ public class BusinessController implements BusinessClient {
         } catch (Exception e) {
             log.info("导出excel异常：{}",e.getMessage());
         }
+    }
+
+    @ParamLogAnno
+    @GetMapping(value = "/paramLog")
+    public String paramLog(@RequestParam("param") String param){
+        return param;
     }
 }

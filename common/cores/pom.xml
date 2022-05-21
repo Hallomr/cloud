@@ -67,5 +67,10 @@
             <artifactId>poi-tl</artifactId>
             <version>1.8.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
     </dependencies>
 </project>
