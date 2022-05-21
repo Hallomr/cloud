@@ -3,14 +3,19 @@ package com.example.business.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.api.service.BusinessClient;
 import com.example.business.mapper.RouteMapper;
+import com.example.business.service.UserInfoService;
 import com.example.core.anno.LoginAnno;
 import com.example.core.anno.ParamLogAnno;
 import com.example.core.dto.business.RoutingExcelDto;
 import com.example.core.model.business.Route;
 import com.example.core.utils.ExcelUtils;
+import com.example.core.vo.req.UserReq;
+import com.example.core.vo.resp.PageResp;
+import com.example.core.vo.resp.UserResp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +31,9 @@ import java.util.stream.Collectors;
 public class BusinessController implements BusinessClient {
     @Autowired
     private RouteMapper routeMapper;
+
+    @Autowired
+    private UserInfoService userInfoService;
 
     @Override
     @RequestMapping(value = "/test",method = RequestMethod.GET)
@@ -72,5 +80,11 @@ public class BusinessController implements BusinessClient {
     @GetMapping(value = "/paramLog")
     public String paramLog(@RequestParam("param") String param){
         return param;
+    }
+
+    @PostMapping("/userInfos")
+    public PageResp<UserResp> userList(@Validated @RequestBody UserReq userReq){
+        PageResp<UserResp> userList = userInfoService.getUserList(userReq);
+        return userList;
     }
 }
